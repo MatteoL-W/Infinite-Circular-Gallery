@@ -5,7 +5,7 @@ import Sizes from './Utils/Sizes.js';
 import Time from './Utils/Time.js';
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
-import Gallery from './Gallery.js';
+import Gallery from './Gallery/Gallery.js';
 import Resources from './Utils/Resources.js';
 import Events from './EventsHandler/Events';
 
@@ -35,7 +35,7 @@ export default class Engine {
         this.resources = new Resources(sources);
         this.camera = new Camera();
         this.renderer = new Renderer();
-        this.world = new Gallery();
+        this.gallery = new Gallery();
 
         // Resize event
         this.sizes.on(Events.Resize, () => {
@@ -74,7 +74,7 @@ export default class Engine {
 
     update() {
         this.camera.update();
-        this.world.update();
+        this.gallery.update();
         this.renderer.update();
     }
 

@@ -1,26 +1,41 @@
-import Engine from './Engine.js';
-import Events from "./EventsHandler/Events";
+import Engine from '../Engine.js';
+import Events from "../EventsHandler/Events";
 import {PlaneGeometry} from "three";
-import Media from "./Media/Media";
+import Media from "../Media/Media";
+import GalleryEventsHandler from "./GalleryEventsHandler";
+import {lerp} from "three/src/math/MathUtils";
 
 export default class Gallery {
     constructor() {
         this.experience = new Engine();
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
+        this.createScrollObject();
+        this.galleryEventsHandler = new GalleryEventsHandler(this);
 
         // Wait for resources
         this.resources.on(Events.Ready, () => {
             this.createGeometry();
             this.defineMediasImages();
             this.createMedias();
+            this.galleryEventsHandler.activateEventListener();
         });
     }
 
     update() {
-        this.medias.forEach(media => media.update(
-            //this.scroll, this.direction
-        ))
+        this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease)
+
+        if (this.scroll.current > this.scroll.last) {
+            this.direction = 'right'
+        } else {
+            this.direction = 'left'
+        }
+
+        if (this.medias) {
+            this.medias.forEach(media => media.update(this.scroll, this.direction))
+        }
+
+        this.scroll.last = this.scroll.current
     }
 
     createGeometry() {
@@ -70,5 +85,14 @@ export default class Gallery {
                 viewport: window.engine.viewport
             })
         })
+    }
+
+    createScrollObject() {
+        this.scroll = {
+            ease: 0.05,
+            current: 0,
+            target: 0,
+            last: 0
+        }
     }
 }
