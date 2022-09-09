@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 
-import Debug from './Utils/Debug.js';
+import Debug from './Debugger/Debug.js';
 import Sizes from './Utils/Sizes.js';
 import Time from './Utils/Time.js';
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
-import World from './World/World.js';
+import Gallery from './Gallery.js';
 import Resources from './Utils/Resources.js';
-import Events from './Utils/Events';
+import Events from './EventsHandler/Events';
 
 import sources from './sources.js';
 
@@ -22,7 +22,7 @@ export default class Engine {
         instance = this;
 
         // Global access
-        window.experience = this;
+        window.engine = this;
 
         // Options
         this.canvas = _canvas;
@@ -35,7 +35,7 @@ export default class Engine {
         this.resources = new Resources(sources);
         this.camera = new Camera();
         this.renderer = new Renderer();
-        this.world = new World();
+        this.world = new Gallery();
 
         // Resize event
         this.sizes.on(Events.Resize, () => {
@@ -46,11 +46,30 @@ export default class Engine {
         this.time.on(Events.Tick, () => {
             this.update();
         });
+
+        this.resizeWebGL();
     }
 
     resize() {
         this.camera.resize();
         this.renderer.resize();
+        this.resizeWebGL();
+    }
+
+    resizeWebGL() {
+        this.screen = {
+            height: window.innerHeight,
+            width: window.innerWidth
+        };
+
+        const fov = this.camera.instance.getEffectiveFOV() * (Math.PI / 180);
+        const height = 2 * Math.tan(fov / 2) * this.camera.instance.position.z;
+        const width = height * this.camera.instance.aspect;
+
+        this.viewport = {
+            height,
+            width
+        };
     }
 
     update() {
@@ -81,7 +100,6 @@ export default class Engine {
             }
         });
 
-        this.camera.controls.dispose();
         this.renderer.instance.dispose();
 
         if (this.debug.active)

@@ -1,30 +1,62 @@
 export default [
     {
-        name: 'environmentMapTexture',
-        type: 'cubeTexture',
-        path:
-            [
-                'textures/environmentMap/px.jpg',
-                'textures/environmentMap/nx.jpg',
-                'textures/environmentMap/py.jpg',
-                'textures/environmentMap/ny.jpg',
-                'textures/environmentMap/pz.jpg',
-                'textures/environmentMap/nz.jpg'
-            ]
-    },
-    {
-        name: 'grassColorTexture',
+        name: 'Image1',
         type: 'texture',
-        path: 'textures/dirt/color.jpg'
+        path: '/images/1.jpg'
     },
     {
-        name: 'grassNormalTexture',
+        name: 'Image2',
         type: 'texture',
-        path: 'textures/dirt/normal.jpg'
+        path: '/images/2.jpg'
     },
     {
-        name: 'foxModel',
-        type: 'gltfModel',
-        path: 'models/Fox/glTF/Fox.gltf'
-    }
+        name: 'Image3',
+        type: 'texture',
+        path: '/images/3.jpg'
+    },
+    {
+        name: 'Image4',
+        type: 'texture',
+        path: '/images/4.jpg'
+    },
+    {
+        name: 'Image5',
+        type: 'texture',
+        path: '/images/5.jpg'
+    },
+    {
+        name: 'Image6',
+        type: 'texture',
+        path: '/images/6.jpg'
+    },
+    {
+        name: 'Image7',
+        type: 'texture',
+        path: '/images/7.jpg'
+    },
+    {
+        name: 'Image8',
+        type: 'texture',
+        path: '/images/8.jpg'
+    },
+    {
+        name: 'Image9',
+        type: 'texture',
+        path: '/images/9.jpg'
+    },
+    {
+        name: 'Image10',
+        type: 'texture',
+        path: '/images/10.jpg'
+    },
+    {
+        name: 'Image11',
+        type: 'texture',
+        path: '/images/11.jpg'
+    },
+    {
+        name: 'Image12',
+        type: 'texture',
+        path: '/images/12.jpg'
+    },
 ];
