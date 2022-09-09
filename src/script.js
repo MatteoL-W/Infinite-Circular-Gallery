@@ -1,5 +1,5 @@
 import './style.css';
 
-import Engine from './Experience/Engine.js';
+import Engine from './Engine/Engine.js';
 
 const engine = new Engine(document.querySelector('canvas.webgl'));
